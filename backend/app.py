@@ -38,6 +38,7 @@ STATIC_FILES = {
     "assets/images/pestiside .jpeg",
     "assets/images/tata wheet.jpeg",
     "assets/images/wheet.jpeg",
+    "assets/images/om-beej-bhandar-logo.jpeg",
 }
 SESSION_LIFETIME = timedelta(hours=8)
 LOGIN_WINDOW_SECONDS = 15 * 60
