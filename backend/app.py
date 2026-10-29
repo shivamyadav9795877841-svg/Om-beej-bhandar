@@ -31,7 +31,13 @@ STATIC_FILES = {
     "assets/css/style.css",
     "assets/js/store.js",
     "assets/js/product-admin.js",
+    "assets/js/product-images.js",
     "assets/images/product-placeholder.svg",
+    "assets/images/musterd seeds.jpeg",
+    "assets/images/pea.jpeg",
+    "assets/images/pestiside .jpeg",
+    "assets/images/tata wheet.jpeg",
+    "assets/images/wheet.jpeg",
 }
 SESSION_LIFETIME = timedelta(hours=8)
 LOGIN_WINDOW_SECONDS = 15 * 60
@@ -416,6 +422,25 @@ def create_app(
         if uploaded_image:
             remove_product_image(existing_image)
         return jsonify(normalize_product(updated))
+
+    @app.delete("/api/products/<product_id>")
+    def delete_product(product_id: str) -> Any:
+        if session.get("authenticated") is not True:
+            return jsonify(error="उत्पाद हटाने के लिए पहले लॉगिन करें।"), 401
+        if collection is None:
+            return jsonify(error="MongoDB Atlas सेट नहीं है। .env में MONGODB_URI जाँचें।"), 503
+
+        selector = product_filter(product_id)
+        existing = collection.find_one(selector)
+        if existing is None:
+            return jsonify(error="यह उत्पाद MongoDB में नहीं मिला।"), 404
+
+        result = collection.delete_one(selector)
+        if not result.deleted_count:
+            return jsonify(error="यह उत्पाद MongoDB में नहीं मिला।"), 404
+
+        remove_product_image(existing.get("image"))
+        return jsonify(message="उत्पाद सफलतापूर्वक हटा दिया गया।")
 
     if client is not None:
         app.extensions["mongodb_client"] = client

@@ -43,7 +43,7 @@ function renderProducts() {
     <article class="admin-product">
       <div class="admin-product-details">
         <img class="admin-product-image"
-          src="${escapeHtml(product.image || "/assets/images/product-placeholder.svg")}"
+          src="${escapeHtml(getProductImage(product))}"
           alt="${escapeHtml(product.name)}">
         <div>
           <h3>${escapeHtml(product.name)}</h3>
@@ -52,7 +52,10 @@ function renderProducts() {
           <p>स्टॉक: ${Number(product.quantity)} नग</p>
         </div>
       </div>
-      <button class="btn light" type="button" data-edit-id="${escapeHtml(product.id)}">अपडेट करें</button>
+      <div class="admin-product-actions">
+        <button class="btn light" type="button" data-edit-id="${escapeHtml(product.id)}">अपडेट करें</button>
+        <button class="btn danger" type="button" data-delete-id="${escapeHtml(product.id)}">हटाएँ</button>
+      </div>
     </article>`).join("");
 }
 
@@ -82,8 +85,7 @@ function beginEdit(product) {
   document.getElementById("productName").value = product.name;
   document.getElementById("productCategory").value = product.category;
   document.getElementById("productImage").value = "";
-  document.getElementById("imagePreview").src =
-    product.image || "/assets/images/product-placeholder.svg";
+  document.getElementById("imagePreview").src = getProductImage(product);
   document.getElementById("productDescription").value = product.description;
   document.getElementById("productPrice").value = product.price;
   document.getElementById("productQuantity").value = product.quantity;
@@ -119,10 +121,36 @@ loginForm.addEventListener("submit", async event => {
 });
 
 productsContainer.addEventListener("click", event => {
-  const button = event.target.closest("[data-edit-id]");
-  if (!button) return;
-  const product = products.find(item => item.id === button.dataset.editId);
-  if (product) beginEdit(product);
+  const editButton = event.target.closest("[data-edit-id]");
+  if (editButton) {
+    const product = products.find(item => item.id === editButton.dataset.editId);
+    if (product) beginEdit(product);
+    return;
+  }
+
+  const deleteButton = event.target.closest("[data-delete-id]");
+  if (!deleteButton) return;
+  const product = products.find(item => item.id === deleteButton.dataset.deleteId);
+  if (!product || !window.confirm(`"${product.name}" को हटाना चाहते हैं? यह बदलाव वापस नहीं किया जा सकता।`)) {
+    return;
+  }
+
+  deleteButton.disabled = true;
+  apiRequest(`/api/products/${encodeURIComponent(product.id)}`, { method: "DELETE" })
+    .then(() => {
+      products = products.filter(item => item.id !== product.id);
+      if (editingId === product.id) {
+        productForm.reset();
+        productForm.hidden = true;
+        editingId = null;
+      }
+      renderProducts();
+      setStatus("उत्पाद सफलतापूर्वक हटा दिया गया।");
+    })
+    .catch(error => {
+      setStatus(error.message, true);
+      deleteButton.disabled = false;
+    });
 });
 
 productForm.addEventListener("submit", async event => {

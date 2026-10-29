@@ -1141,6 +1141,20 @@ section {
     object-fit: cover;
 }
 
+.admin-product-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn.danger {
+    background: #a32020;
+    color: #fff;
+}
+
+.btn.danger:hover {
+    background: #851a1a;
+}
+
 .admin-image-preview {
     display: block;
     width: 160px;

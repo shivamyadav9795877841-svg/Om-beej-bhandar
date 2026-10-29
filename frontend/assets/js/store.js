@@ -33,7 +33,7 @@ function renderProducts() {
   document.getElementById("count").textContent = `${visibleProducts.length} उत्पाद`;
   document.getElementById("productGrid").innerHTML = visibleProducts.map(product => `
     <article class="product">
-      <img class="productimg" src="${escapeHtml(product.image || "/assets/images/product-placeholder.svg")}"
+      <img class="productimg" src="${escapeHtml(getProductImage(product))}"
         alt="${escapeHtml(product.name)}" loading="lazy">
       <div class="productbody">
         <h3>${escapeHtml(product.name)}</h3>
@@ -97,7 +97,7 @@ function renderCart() {
     return `
       <div class="cartline">
         <div>
-          <img class="cart-product-image" src="${escapeHtml(product.image || "/assets/images/product-placeholder.svg")}"
+          <img class="cart-product-image" src="${escapeHtml(getProductImage(product))}"
             alt="" loading="lazy">
           <b>${escapeHtml(product.name)}</b><br>
           <small>${rupees(product.price)} each</small>
