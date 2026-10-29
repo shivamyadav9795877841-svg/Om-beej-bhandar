@@ -49,6 +49,7 @@ function renderProducts() {
           <h3>${escapeHtml(product.name)}</h3>
           <p>${escapeHtml(product.category)} · ${escapeHtml(product.description)}</p>
           <strong>₹${Number(product.price).toLocaleString("en-IN")}</strong>
+          ${product.packSize ? `<p>पैक साइज: ${escapeHtml(product.packSize)}</p>` : ""}
           <p>स्टॉक: ${Number(product.quantity)} नग</p>
         </div>
       </div>
@@ -88,6 +89,7 @@ function beginEdit(product) {
   document.getElementById("imagePreview").src = getProductImage(product);
   document.getElementById("productDescription").value = product.description;
   document.getElementById("productPrice").value = product.price;
+  document.getElementById("productPackSize").value = product.packSize || "";
   document.getElementById("productQuantity").value = product.quantity;
   productForm.hidden = false;
   productForm.scrollIntoView({ behavior: "smooth", block: "start" });

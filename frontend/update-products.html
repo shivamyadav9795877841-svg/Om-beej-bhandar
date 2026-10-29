@@ -65,8 +65,12 @@
         <textarea id="productDescription" name="description" maxlength="500" rows="3"></textarea>
         <label for="productPrice">कीमत (₹)</label>
         <input id="productPrice" name="price" type="number" min="0.01" max="10000000" step="0.01" required>
-        <label for="productQuantity">स्टॉक quantity</label>
-        <input id="productQuantity" name="quantity" type="number" min="0" max="1000000" step="1" required>
+        <label for="productPackSize">पैक साइज / मात्रा (जैसे 1 किलो, 500 ग्राम)</label>
+        <input id="productPackSize" name="packSize" type="text" maxlength="80"
+          placeholder="जैसे 1 किलो, 500 ग्राम, 10 पैकेट">
+        <label for="productQuantity">स्टॉक की संख्या (कितने पैकेट उपलब्ध हैं)</label>
+        <input id="productQuantity" name="quantity" type="text" inputmode="numeric"
+          pattern="[0-9]{1,7}" maxlength="7" placeholder="जैसे 25" required>
         <div class="admin-form-actions">
           <button class="btn" id="saveProductButton" type="submit">उत्पाद सेव करें</button>
           <button class="btn light" id="cancelEdit" type="button">रद्द करें</button>

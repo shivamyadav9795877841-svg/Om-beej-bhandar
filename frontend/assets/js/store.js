@@ -39,7 +39,7 @@ function renderProducts() {
         <h3>${escapeHtml(product.name)}</h3>
         <p class="muted">${escapeHtml(product.description)}</p>
         <div class="price">${rupees(product.price)}</div>
-        <p class="muted">${product.quantity} नग उपलब्ध</p>
+        <p class="muted">${product.packSize ? `${escapeHtml(product.packSize)} · ` : ""}${product.quantity} नग स्टॉक में</p>
         <div class="actions">
           <button data-action="add" data-product-id="${escapeHtml(product.id)}"
             ${product.quantity < 1 ? "disabled" : ""}>${product.quantity < 1 ? "स्टॉक में नहीं" : "＋ कार्ट में जोड़ें"}</button>
@@ -100,6 +100,7 @@ function renderCart() {
           <img class="cart-product-image" src="${escapeHtml(getProductImage(product))}"
             alt="" loading="lazy">
           <b>${escapeHtml(product.name)}</b><br>
+          ${product.packSize ? `<small>${escapeHtml(product.packSize)}</small><br>` : ""}
           <small>${rupees(product.price)} each</small>
         </div>
         <div class="cart-quantity">
@@ -163,7 +164,7 @@ async function submitCheckout(event) {
   const area = document.getElementById("deliveryArea").value;
   const payment = document.querySelector('input[name="payment"]:checked').value;
   const lines = orderProducts.map(({ product, qty }) =>
-    `- ${product.name}: ${qty} x ${rupees(product.price)} = ${rupees(qty * product.price)}`
+    `- ${product.name}${product.packSize ? ` (${product.packSize})` : ""}: ${qty} x ${rupees(product.price)} = ${rupees(qty * product.price)}`
   ).join("\n");
   const orderTotal = total();
   const delivery = area === "local" ? "लोकल (कन्फर्म करें)" : "All India courier (कन्फर्म करें)";

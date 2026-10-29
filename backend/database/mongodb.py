@@ -65,6 +65,7 @@ def normalize_product(document: dict[str, Any]) -> dict[str, Any]:
         "category": category,
         "image": document.get("image") if isinstance(document.get("image"), str) else "",
         "description": description if isinstance(description, str) else "",
+        "packSize": document.get("packSize") if isinstance(document.get("packSize"), str) else "",
         "price": price,
         "quantity": quantity,
     }
@@ -82,12 +83,15 @@ def validate_product_update(body: Any) -> dict[str, Any]:
         if isinstance(body.get("description"), str)
         else ""
     )
+    pack_size = body.get("packSize", "").strip() if isinstance(body.get("packSize"), str) else ""
     try:
         price = float(body.get("price"))
     except (TypeError, ValueError):
         price = float("nan")
+    quantity_value = body.get("quantity")
+    quantity_text = str(quantity_value).strip()
     try:
-        quantity = int(body.get("quantity"))
+        quantity = int(quantity_text)
     except (TypeError, ValueError):
         quantity = -1
 
@@ -98,13 +102,15 @@ def validate_product_update(body: Any) -> dict[str, Any]:
         or category not in PRODUCT_CATEGORIES
         or len(image) > 500
         or len(description) > 500
+        or len(pack_size) > 80
         or not math.isfinite(price)
         or price <= 0
         or price > 10_000_000
-        or isinstance(body.get("quantity"), bool)
+        or isinstance(quantity_value, bool)
+        or not quantity_text.isascii()
+        or not quantity_text.isdecimal()
         or quantity < 0
         or quantity > 1_000_000
-        or str(quantity) != str(body.get("quantity")).strip()
     ):
         raise ValueError("नाम, कैटेगरी, image, विवरण, कीमत या quantity मान्य नहीं है।")
 
@@ -113,6 +119,7 @@ def validate_product_update(body: Any) -> dict[str, Any]:
         "category": category,
         "image": image,
         "description": description,
+        "packSize": pack_size,
         "price": price,
         "quantity": quantity,
     }

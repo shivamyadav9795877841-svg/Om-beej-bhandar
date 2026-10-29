@@ -276,8 +276,10 @@ def create_app(
                 })
                 line_total = product["price"] * quantity
                 total_amount += line_total
+                pack_size = f" ({product['packSize']})" if product["packSize"] else ""
                 order_lines.append(
-                    f"- {product['name']}: {quantity} x ₹{product['price']:,.2f} = ₹{line_total:,.2f}"
+                    f"- {product['name']}{pack_size}: "
+                    f"{quantity} x ₹{product['price']:,.2f} = ₹{line_total:,.2f}"
                 )
 
             if total_amount <= 0 or total_amount > 100_000_000:
