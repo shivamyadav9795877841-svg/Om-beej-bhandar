@@ -3,11 +3,16 @@ import logging
 import os
 import secrets
 import smtplib
+import sys
 import threading
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if __package__ in {None, ""} and str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, request, send_from_directory, session
@@ -24,7 +29,6 @@ from backend.database.mongodb import (
 from backend.media import remove_product_image, save_product_image
 from backend.notifications.email import send_order_email, send_test_email
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = PROJECT_ROOT / "frontend"
 STATIC_FILES = {
     "update-products.html",
