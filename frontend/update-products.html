@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="hi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Om Beej Bhandar के उत्पाद MongoDB Atlas में अपडेट करें।">
+  <title>उत्पाद प्रबंधन | Om Beej Bhandar</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body class="admin-page">
+  <header class="admin-header">
+    <a class="brand" href="/">
+      <span class="logo">🌱</span>
+      <span><h1>Om Beej Bhandar</h1><small>उत्पाद प्रबंधन</small></span>
+    </a>
+    <a class="btn light" href="/">दुकान पर वापस जाएँ</a>
+  </header>
+  <main class="admin-main">
+    <section class="admin-intro">
+      <div class="eyebrow">दुकान एडमिन</div>
+      <h2>MongoDB Atlas के उत्पाद प्रबंधित करें</h2>
+      <p>यहाँ किए गए बदलाव सीधे products collection में सेव होंगे और दुकान की सूची में दिखेंगे।</p>
+    </section>
+
+    <section class="admin-panel" id="loginPanel">
+      <h2>एडमिन लॉगिन</h2>
+      <form id="loginForm" class="admin-form">
+        <label for="adminPassword">एडमिन पासवर्ड</label>
+        <input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
+        <button class="btn" type="submit">लॉगिन करें</button>
+      </form>
+      <p id="loginStatus" class="notice" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="admin-panel" id="managementPanel" hidden>
+      <div class="admin-toolbar">
+        <h2>उत्पाद सूची</h2>
+        <div class="admin-form-actions">
+          <button class="btn" id="addProductButton" type="button">＋ नया उत्पाद</button>
+          <button class="btn light" id="testEmailButton" type="button">टेस्ट ईमेल भेजें</button>
+          <button class="btn light" id="logoutButton" type="button">लॉगआउट</button>
+        </div>
+      </div>
+      <p id="emailStatus" class="notice" role="status" aria-live="polite"></p>
+      <p id="adminStatus" class="notice" role="status" aria-live="polite"></p>
+      <div id="adminProducts" class="admin-products"></div>
+      <form id="productForm" class="admin-form product-edit-form" hidden>
+        <h3 id="editTitle">उत्पाद अपडेट करें</h3>
+        <label for="productName">उत्पाद का नाम</label>
+        <input id="productName" name="name" maxlength="120" required>
+        <label for="productCategory">कैटेगरी</label>
+        <select id="productCategory" name="category" required>
+          <option value="बीज">बीज</option>
+          <option value="खाद">खाद</option>
+          <option value="कीटनाशक">कीटनाशक</option>
+          <option value="उपकरण">उपकरण</option>
+          <option value="जैविक">जैविक</option>
+        </select>
+        <label for="productImage">उत्पाद की तस्वीर</label>
+        <input id="productImage" name="image" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
+        <img id="imagePreview" class="admin-image-preview" src="/assets/images/product-placeholder.svg" alt="उत्पाद तस्वीर का preview">
+        <label for="productDescription">विवरण</label>
+        <textarea id="productDescription" name="description" maxlength="500" rows="3"></textarea>
+        <label for="productPrice">कीमत (₹)</label>
+        <input id="productPrice" name="price" type="number" min="0.01" max="10000000" step="0.01" required>
+        <label for="productQuantity">स्टॉक quantity</label>
+        <input id="productQuantity" name="quantity" type="number" min="0" max="1000000" step="1" required>
+        <div class="admin-form-actions">
+          <button class="btn" id="saveProductButton" type="submit">उत्पाद सेव करें</button>
+          <button class="btn light" id="cancelEdit" type="button">रद्द करें</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <script src="/assets/js/product-admin.js"></script>
+</body>
+
+</html>

@@ -7,7 +7,7 @@
   <meta name="description"
     content="Om Beej Bhandar: बीज, खाद और कृषि उत्पाद। लोकल और पूरे भारत में ऑर्डर के लिए संपर्क करें।">
   <title>Om Beej Bhandar | Online Krishi Store</title>
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body>
@@ -22,7 +22,8 @@
     <div class="headcontact"><b>Shivam Maurya</b><br>Proprietor<br>📍 Shual, Bandipur Road, Ambedkar Nagar</div>
   </header>
   <nav class="nav"><a href="#home">होम</a><a href="#categories">कैटेगरी</a><a href="#products">सभी उत्पाद</a><a
-      href="#shipping">डिलीवरी व भुगतान</a><a href="#about">हमारे बारे में</a><a href="#contact">संपर्क</a></nav>
+      href="#shipping">डिलीवरी व भुगतान</a><a href="#about">हमारे बारे में</a><a href="#contact">संपर्क</a><a
+      href="/update-products.html">उत्पाद प्रबंधन</a></nav>
   <main>
     <section class="hero" id="home">
       <div>
@@ -62,16 +63,16 @@
     </section>
     <section id="products">
       <div class="titlebar">
-        <h2>उत्पाद सूची</h2><span id="count" class="pill">8 उत्पाद</span>
+        <h2>उत्पाद सूची</h2><span id="count" class="pill">0 उत्पाद</span>
       </div>
       <div class="filters"><input id="filterInput" placeholder="नाम से खोजें..."><select id="sort">
           <option value="default">क्रम: सामान्य</option>
           <option value="low">कीमत: कम से ज्यादा</option>
           <option value="high">कीमत: ज्यादा से कम</option>
         </select></div>
-      <div class="products" id="productGrid"></div>
-      <p class="notice">डेमो सूचना: नीचे दिए गए उत्पाद और कीमतें उदाहरण हैं। असली बिक्री से पहले वास्तविक ब्रांड,
-        पैक-साइज़, स्टॉक और कीमत अपडेट करें।</p>
+        <p class="notice" id="productStatus" role="status" aria-live="polite">MongoDB Atlas से उत्पाद लोड हो रहे हैं...</p>
+        <div class="products" id="productGrid"></div>
+        <p class="notice">कीमत और उपलब्धता की पुष्टि ऑर्डर से पहले दुकान से करें।</p>
     </section>
     <section id="shipping">
       <div class="titlebar">
@@ -154,13 +155,13 @@
       <p><b>पेमेंट तरीका चुनें</b></p>
       <div class="paychoices"><label><input type="radio" name="payment" value="UPI" checked> UPI /
           ऑनलाइन</label><label><input type="radio" name="payment" value="COD"> Cash on Delivery</label></div>
+      <p class="notice" id="orderStatus" role="status" aria-live="polite"></p>
       <button class="btn" style="width:100%" type="submit">ऑर्डर WhatsApp पर भेजें</button>
     </form>
-    <p class="notice">यह संस्करण ऑर्डर का विवरण WhatsApp पर भेजता है। यह अपने-आप भुगतान नहीं लेता, स्टॉक नहीं घटाता और
+    <p class="notice">ऑर्डर का नाम, फोन, पता और उत्पाद विवरण दुकान को email और WhatsApp से भेजे जाएंगे। यह अपने-आप भुगतान नहीं लेता, स्टॉक नहीं घटाता और
       कूरियर बुक नहीं करता।</p>
   </aside>
-  <script src="script.js">
-  </script>
+  <script src="/assets/js/store.js"></script>
 </body>
 
 </html>

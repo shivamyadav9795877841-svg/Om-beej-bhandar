@@ -957,7 +957,7 @@ section {
     background:
         radial-gradient(circle at 75% 20%, #fff 0, transparent 34%),
         linear-gradient(145deg, #e6f0e2, #f7faf5);
-    font-size: 68px;
+    object-fit: cover;
 }
 
 .productbody {
@@ -1103,11 +1103,52 @@ section {
 
 .cartline {
     border-color: #e4ece2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
 
 .cartline button {
     background: #edf5eb;
     color: #31553a;
+}
+
+.cart-product-image {
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
+    border-radius: 8px;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+.cart-quantity {
+    display: grid;
+    justify-items: end;
+    gap: 6px;
+}
+
+.cart-quantity input {
+    width: 72px;
+}
+
+.admin-product-image {
+    width: 72px;
+    height: 72px;
+    flex: 0 0 72px;
+    border-radius: 9px;
+    object-fit: cover;
+}
+
+.admin-image-preview {
+    display: block;
+    width: 160px;
+    height: 110px;
+    margin: 8px 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    object-fit: cover;
 }
 
 .cartpanel .btn {
@@ -1308,5 +1349,148 @@ section {
     *::after {
         scroll-behavior: auto !important;
         transition-duration: .01ms !important;
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+
+    .admin-page {
+        min-height: 100vh;
+    }
+
+    .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 18px max(5%, calc((100% - 1120px) / 2));
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .admin-main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px 5% 60px;
+    }
+
+    .admin-intro {
+        padding: 15px 0 25px;
+    }
+
+    .admin-intro h2 {
+        margin: 5px 0;
+        color: var(--green);
+        font-size: clamp(25px, 4vw, 36px);
+    }
+
+    .admin-panel {
+        margin: 15px 0;
+        padding: 22px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+    }
+
+    .admin-panel h2 {
+        margin: 0;
+        color: var(--green);
+    }
+
+    .admin-toolbar,
+    .admin-product,
+    .admin-product-details,
+    .admin-form-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .admin-form {
+        display: grid;
+        gap: 9px;
+        max-width: 520px;
+    }
+
+    .admin-form label {
+        margin-top: 5px;
+        font-weight: bold;
+    }
+
+    .admin-form input,
+    .admin-form select,
+    .admin-form textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+    }
+
+    .admin-products {
+        display: grid;
+        gap: 10px;
+    }
+
+    .admin-product {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+    }
+
+    .admin-product-details {
+        justify-content: flex-start;
+        min-width: 0;
+    }
+
+    .admin-product-emoji {
+        font-size: 30px;
+    }
+
+    .admin-product h3,
+    .admin-product p {
+        margin: 0 0 4px;
+    }
+
+    .admin-product p {
+        color: var(--muted);
+        overflow-wrap: anywhere;
+    }
+
+    .admin-product strong {
+        color: var(--green);
+    }
+
+    .product-edit-form {
+        max-width: none;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+    }
+
+    .admin-error {
+        color: #a32020;
+    }
+
+    @media (max-width: 560px) {
+        .admin-header,
+        .admin-toolbar,
+        .admin-product {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .admin-panel {
+            padding: 16px;
+        }
+
+        .admin-form-actions {
+            align-items: stretch;
+            flex-direction: column;
+        }
     }
 }
