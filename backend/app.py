@@ -14,6 +14,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if __package__ in {None, ""} and str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+print("Server admin is running on http://127.0.0.1:5000/update-products.html")
+
 from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, request, send_from_directory, session
 from pymongo import ReturnDocument

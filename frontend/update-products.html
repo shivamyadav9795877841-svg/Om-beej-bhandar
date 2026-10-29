@@ -62,11 +62,11 @@
         <input id="productImage" name="image" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
         <img id="imagePreview" class="admin-image-preview" src="/assets/images/product-placeholder.svg" alt="उत्पाद तस्वीर का preview">
         <label for="productDescription">विवरण</label>
-        <textarea id="productDescription" name="description" maxlength="500" rows="3"></textarea>
+        <textarea style="margin: 12px;" id="productDescription" name="description" maxlength="500" cols="150" rows="3"></textarea>
         <label for="productPrice">कीमत (₹)</label>
-        <input id="productPrice" name="price" type="number" min="0.01" max="10000000" step="0.01" required>
+        <input id="productPrice"  style="margin: 12px;" name="price" type="number" max="10000000" required>
         <label for="productPackSize">पैक साइज / मात्रा (जैसे 1 किलो, 500 ग्राम)</label>
-        <input id="productPackSize" name="packSize" type="text" maxlength="80"
+        <input id="productPackSize" style="margin: 12px;" name="packSize" type="text" maxlength="80"
           placeholder="जैसे 1 किलो, 500 ग्राम, 10 पैकेट">
         <label for="productQuantity">स्टॉक की संख्या (कितने पैकेट उपलब्ध हैं)</label>
         <input id="productQuantity" name="quantity" type="text" inputmode="numeric"
